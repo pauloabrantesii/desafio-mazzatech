@@ -79,7 +79,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$USER_HOME$/Downloads/logo-mazzatech.png" />
+                                                <entry key="imagePath" value="$USER_HOME$/Downloads/Add image.svg" />
                                                 <entry key="scalingPercent" value="52" />
                                               </map>
                                             </option>
@@ -108,6 +108,11 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="outputName" value="add" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -284,6 +289,11 @@
                 </map>
               </option>
             </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState />
           </value>
         </entry>
       </map>
