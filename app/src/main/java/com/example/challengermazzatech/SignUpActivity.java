@@ -11,7 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,7 +23,7 @@ import java.util.regex.Pattern;
 
 
 public class SignUpActivity extends AppCompatActivity {
-    DatabaseHelper helper;
+    UserDAO dao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
         editTextList.add(dataEditText);
         editTextList.add(sexoEditText);
 
-        helper = new DatabaseHelper(this
+        dao = new UserDAO(this
         );
 
         goBackButton.setOnTouchListener(new View.OnTouchListener() {
@@ -174,7 +173,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void registerUser(String name,String username,String email, String address, String age, String sex, String type, String cpf ){
         User user = new User(name, username, email, address, age, sex, type, cpf, false);
-        long result =  helper.inserirUsuario(this, user);
+        long result =  dao.inserirUsuario(this, user);
         if (result != -1) {
             Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
             startActivity(intent);

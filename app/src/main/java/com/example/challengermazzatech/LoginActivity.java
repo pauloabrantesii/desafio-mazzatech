@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -52,8 +51,8 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("LoginActivity", email);
                 Log.d("LoginActivity", password);
 
-                DatabaseHelper helper = new DatabaseHelper(LoginActivity.this);
-//                boolean login = helper.checkUserLogged(email, password);
+                UserDAO dao = new UserDAO(LoginActivity.this);
+//                boolean login = dao.checkUserLogged(email, password);
 //                if (
 //                        login
 //                ){

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class UserDAO extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "app_database";
@@ -47,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + ")";
 
 
-    public DatabaseHelper(Context context) {
+    public UserDAO(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
