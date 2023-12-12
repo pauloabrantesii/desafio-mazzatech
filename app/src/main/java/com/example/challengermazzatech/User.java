@@ -10,7 +10,9 @@ public class User {
     String type;
     String cpf;
 
-    public User (String name, String email, String username, String address, String age, String sex, String type, String cpf) {
+    boolean login;
+
+    public User (String name, String email, String username, String address, String age, String sex, String type, String cpf, boolean login) {
         this.name = name;
         this.email = email;
         this.username = username;
@@ -19,7 +21,11 @@ public class User {
         this.sex = sex;
         this.type = type;
         this.cpf = cpf;
+        this.login = login;
+    }
 
+    public boolean isLogin() {
+        return login;
     }
 
     public String getName() {

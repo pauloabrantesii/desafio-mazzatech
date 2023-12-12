@@ -53,15 +53,15 @@ public class HomeActivity extends AppCompatActivity {
 
         list = new ArrayList<User>();
 
-        list.add(new User("Paulo roberto", "paulo@me.com", "","","","","",""));
-        list.add(new User("Mateus lucas", "paulo@me.com", "","","","","",""));
-        list.add(new User("Talles marinho", "paulo@me.com", "","","","","",""));
-        list.add(new User("Philippe Victor", "paulo@me.com", "","","","","",""));
-        list.add(new User("Victor primo", "paulo@me.com", "","","","","",""));
-        list.add(new User("Maria Luiza", "paulo@me.com", "","","","","",""));
-        list.add(new User("Ana Paula", "paulo@me.com", "","","","","",""));
-        list.add(new User("Alisson Henrique", "paulo@me.com", "","","","","",""));
-        list.add(new User("Lucas roberto", "paulo@me.com", "","","","","",""));
+        list.add(new User("Paulo roberto", "paulo@me.com", "","","","","","", false));
+        list.add(new User("Mateus lucas", "paulo@me.com", "","","","","","", false));
+        list.add(new User("Talles marinho", "paulo@me.com", "","","","","","", false));
+        list.add(new User("Philippe Victor", "paulo@me.com", "","","","","","", false));
+        list.add(new User("Victor primo", "paulo@me.com", "","","","","","", false));
+        list.add(new User("Maria Luiza", "paulo@me.com", "","","","","","", false));
+        list.add(new User("Ana Paula", "paulo@me.com", "","","","","","", false));
+        list.add(new User("Alisson Henrique", "paulo@me.com", "","","","","","", false));
+        list.add(new User("Lucas roberto", "paulo@me.com", "","","","","","", false));
 
         RecyclerView recyclerView = findViewById(R.id.recycleView);
 

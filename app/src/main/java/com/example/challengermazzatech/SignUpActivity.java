@@ -54,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
         editTextList.add(dataEditText);
         editTextList.add(sexoEditText);
 
-         helper = new DatabaseHelper(this
+        helper = new DatabaseHelper(this
         );
 
         goBackButton.setOnTouchListener(new View.OnTouchListener() {
@@ -173,7 +173,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void registerUser(String name,String username,String email, String address, String age, String sex, String type, String cpf ){
-        User user = new User(name, username, email, address, age, sex, type, cpf);
+        User user = new User(name, username, email, address, age, sex, type, cpf, false);
         long result =  helper.inserirUsuario(this, user);
         if (result != -1) {
             Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);

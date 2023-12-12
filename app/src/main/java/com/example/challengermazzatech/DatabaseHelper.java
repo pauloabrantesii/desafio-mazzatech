@@ -63,6 +63,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean checkUserLogged(String email, String passoword) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columns = {COL_PASSWORD};
+
+//        String selection = COL_EMAIL + "=? AND " + COL_PASSWORD + " IS NOT NULL";
+
+        String query = "SELECT * FROM " + TABLE_USER + " WHERE " + COL_EMAIL + " = ? AND " + COL_PASSWORD + " = ?";
+        String[] selectionArgs = {email, passoword};
+        Cursor cursor = db.rawQuery(query, new String[]{email});
+//        Cursor cursor = db.query(
+//                TABLE_USER,
+//                columns,
+//                selection,
+//                selectionArgs,
+//                null,
+//                null,
+//                null
+//        );
+
+        boolean isLogged = cursor != null && cursor.getCount() == 0;
+
+//        if (cursor != null) {
+//            cursor.close();
+//        }
+//        db.close();
+
+        return isLogged;
+    }
 
     public long inserirUsuario(Context context, User user) {
         SQLiteDatabase db = this.getWritableDatabase();
