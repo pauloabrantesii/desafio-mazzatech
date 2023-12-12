@@ -14,6 +14,19 @@
 
 
         <ImageView
+            android:id="@+id/goback"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:background="#FFFFFF"
+            android:clickable="true"
+            android:src="@drawable/arrow_foreground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+        <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,10 +44,11 @@
             android:layout_marginEnd="20dp"
             android:background="@color/vinho"
             android:contentDescription="Adicionar imagem do usuario"
+            android:foreground="@drawable/add_foreground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.512"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3"/>
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
         <EditText
             android:id="@+id/TextNome"
@@ -58,6 +72,19 @@
 
 
         <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="335dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="20dp"
+            android:hint="Digite sua senha"
+            android:inputType="textPassword"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextUsername"/>
+
+
+
+        <EditText
             android:id="@+id/editTextEmail"
             android:layout_width="335dp"
             android:layout_height="56dp"
@@ -66,7 +93,7 @@
             android:inputType="textEmailAddress"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextUsername"/>
+            app:layout_constraintTop_toBottomOf="@id/passwordEditText"/>
 
 
         <EditText
@@ -81,6 +108,16 @@
             app:layout_constraintTop_toBottomOf="@id/editTextEmail"/>
 
         <EditText
+            android:id="@+id/Address"
+            android:layout_width="335dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="20dp"
+            android:hint="Digite seu endereço"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/CPF"/>
+
+        <EditText
             android:id="@+id/DATA"
             android:layout_width="335dp"
             android:layout_height="56dp"
@@ -89,7 +126,7 @@
             android:inputType="number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/CPF"/>
+            app:layout_constraintTop_toBottomOf="@id/Address"/>
 
 
         <EditText
@@ -103,7 +140,7 @@
             app:layout_constraintTop_toBottomOf="@id/DATA"/>
 
         <Button
-            android:id="@+id/buttonCadastrar"
+            android:id="@+id/signupButton"
             android:layout_width="335dp"
             android:layout_height="54dp"
             android:layout_marginStart="20dp"

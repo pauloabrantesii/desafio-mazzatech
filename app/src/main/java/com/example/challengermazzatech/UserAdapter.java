@@ -1,0 +1,63 @@
+package com.example.challengermazzatech;
+
+import android.content.Context;
+import android.view.ContextMenu;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
+
+    List<User> users;
+    Context context;
+    public UserAdapter(List<User> users, Context context) {
+        this.users = users;
+        this.context = context;
+    }
+
+    @NonNull
+    @Override
+    public UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false);
+        return new UserHolder(view);
+
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull UserHolder holder, int position) {
+        User user = users.get(position);
+        holder.email.setText(user.email);
+        holder.name.setText(user.name);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return users.size();
+    }
+    public void changeList (List<User> list){
+        this.users = list;
+        notifyDataSetChanged();
+    }
+    class UserHolder extends RecyclerView.ViewHolder {
+
+        TextView name;
+        TextView email;
+
+        public UserHolder(@NonNull View itemView) {
+            super(itemView);
+            name = itemView.findViewById(R.id.name);
+            email = itemView.findViewById(R.id.email);
+
+        }
+    }
+}
+
+
+

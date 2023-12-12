@@ -79,7 +79,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$USER_HOME$/Downloads/Add image.svg" />
+                                                <entry key="imagePath" value="$PROJECT_DIR$/../../Menu/Back/Arrow.svg" />
                                                 <entry key="scalingPercent" value="52" />
                                               </map>
                                             </option>
@@ -112,7 +112,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="add" />
+                                      <entry key="outputName" value="arrow" />
                                     </map>
                                   </option>
                                 </PersistentState>
