@@ -63,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
     public long inserirUsuario(Context context, User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 

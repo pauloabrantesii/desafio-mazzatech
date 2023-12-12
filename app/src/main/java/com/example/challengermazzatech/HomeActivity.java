@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
-import android.widget.SearchView;
+import android.widget.ImageView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +23,33 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        ImageView goBackButton = findViewById(R.id.goBack);
+        goBackButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                onDestroy();
+                return false;
+            }
+        });
+
+
+
+
+        EditText editSearch = findViewById(R.id.textSearch);
+        editSearch.setText("Busque pelo nome");
+        editSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    editSearch.setText("");
+                }
+            }
+        });
+
 
         list = new ArrayList<User>();
 

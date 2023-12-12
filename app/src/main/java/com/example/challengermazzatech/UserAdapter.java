@@ -1,21 +1,19 @@
 package com.example.challengermazzatech;
-
 import android.content.Context;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
 
-    List<User> users;
-    Context context;
+    private List<User> users;
+    private Context context;
+
     public UserAdapter(List<User> users, Context context) {
         this.users = users;
         this.context = context;
@@ -26,38 +24,46 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
     public UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false);
         return new UserHolder(view);
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull UserHolder holder, int position) {
         User user = users.get(position);
-        holder.email.setText(user.email);
-        holder.name.setText(user.name);
+        holder.email.setText(user.getEmail());
+        holder.name.setText(user.getName());
 
+        // Configuração do ícone de exclusão
+        holder.deleteIcon.setOnClickListener(v -> {
+            // Remove o item da lista
+            users.remove(position);
+            // Notifica o RecyclerView que o item foi removido
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, users.size());
+        });
     }
 
     @Override
     public int getItemCount() {
         return users.size();
     }
-    public void changeList (List<User> list){
+
+    public void changeList(List<User> list) {
         this.users = list;
         notifyDataSetChanged();
     }
-    class UserHolder extends RecyclerView.ViewHolder {
+
+    static class UserHolder extends RecyclerView.ViewHolder {
 
         TextView name;
         TextView email;
+        ImageView deleteIcon;
 
         public UserHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             email = itemView.findViewById(R.id.email);
-
+            deleteIcon = itemView.findViewById(R.id.deleteIcon);
         }
     }
 }
-
-
 

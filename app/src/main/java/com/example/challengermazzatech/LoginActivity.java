@@ -20,51 +20,21 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        TextView button = findViewById(R.id.textViewN);
-        TextView forgotButton = findViewById(R.id.textForgot);
         EditText emailText = findViewById(R.id.TextTextEmailAddress);
         EditText passwordText = findViewById(R.id.TextPassword);
         Button loginButton = findViewById(R.id.buttonAcessar);
 
+
         loginButton.setEnabled(false);
 
 
-        emailText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkFieldsForEmptyValues(emailText, passwordText, loginButton);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
-
-        passwordText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkFieldsForEmptyValues(emailText, passwordText, loginButton);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
+        emailText.addTextChangedListener(textWatcher);
+        passwordText.addTextChangedListener(textWatcher);
 
         Context context = this;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        forgotButton.setOnClickListener(new View.OnClickListener() {
+        TextView button = findViewById(R.id.textViewN);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, SignUpActivity.class);
@@ -86,16 +56,25 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-    private void checkFieldsForEmptyValues(EditText emailText, EditText passwordText, Button loginButton) {
-        String email = emailText.getText().toString();
-        String password = passwordText.getText().toString();
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            EditText emailText = findViewById(R.id.TextTextEmailAddress);
+            EditText passwordText = findViewById(R.id.TextPassword);
+            Button loginButton = findViewById(R.id.buttonAcessar);
 
 
-        if (!email.isEmpty() && !password.isEmpty()) {
-            loginButton.setEnabled(true);
-        } else {
-            loginButton.setEnabled(false);
+            String email = emailText.getText().toString().trim();
+            String password = passwordText.getText().toString().trim();
+
+
+            loginButton.setEnabled(!email.isEmpty() && !password.isEmpty());
         }
-    }
+    };
 }

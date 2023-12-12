@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.santalu.maskara.widget.MaskEditText;
+import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -33,7 +35,8 @@ public class SignUpActivity extends AppCompatActivity {
         EditText emailEditText = findViewById(R.id.editTextEmail);
         EditText passwordEditText = findViewById(R.id.passwordEditText);
         EditText addressText = findViewById(R.id.Address);
-        EditText cpfEditText = findViewById(R.id.CPF);
+        MaskEditText cpfEditText = findViewById(R.id.CPF);
+        cpfEditText.setHint("Digite seu CPF");
         EditText dataEditText = findViewById(R.id.DATA);
         EditText sexoEditText = findViewById(R.id.Sexo);
         Button signupButton = findViewById(R.id.signupButton);
@@ -135,37 +138,50 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {}
         });
-
         signupButton.setOnClickListener(v -> {
-            registerUser(
-                    nomeEditText.getText().toString(),
-                    usernameEditText.getText().toString(),
-                    emailEditText.getText().toString(),
-                    addressText.getText().toString(),
-                    passwordEditText.getText().toString(),
-                    cpfEditText.getText().toString(),
-                    dataEditText.getText().toString(),
-                    sexoEditText.getText().toString()
-              );
+            String dataNascimento = dataEditText.getText().toString();
+            if (!dataNascimento.isEmpty()) {
+                String[] parts = dataNascimento.split("/");
+                int dia = Integer.parseInt(parts[0]);
+                int mes = Integer.parseInt(parts[1]);
+                int ano = Integer.parseInt(parts[2]);
 
-            Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
-            startActivity(intent);
+                Calendar cal = Calendar.getInstance();
+                int anoAtual = cal.get(Calendar.YEAR);
+
+                int idade = anoAtual - ano;
+
+                if (idade < 18) {
+                    Toast.makeText(SignUpActivity.this, "É necessário ter mais de 18 anos para se cadastrar.", Toast.LENGTH_SHORT).show();
+                } else {
+                    registerUser(
+                            nomeEditText.getText().toString(),
+                            usernameEditText.getText().toString(),
+                            emailEditText.getText().toString(),
+                            addressText.getText().toString(),
+                            passwordEditText.getText().toString(),
+                            cpfEditText.getText().toString(),
+                            dataNascimento,
+                            sexoEditText.getText().toString()
+                    );
+                }
+            } else {
+                Toast.makeText(SignUpActivity.this, "Por favor, insira sua data de nascimento.", Toast.LENGTH_SHORT).show();
+            }
         });
+
     }
 
     private void registerUser(String name,String username,String email, String address, String age, String sex, String type, String cpf ){
         User user = new User(name, username, email, address, age, sex, type, cpf);
         long result =  helper.inserirUsuario(this, user);
-        if (
-               result != -1
-       ){
-            Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+        if (result != -1) {
+            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
             startActivity(intent);
-           Toast.makeText(SignUpActivity.this, " usuario cadastrado", Toast.LENGTH_SHORT).show();
-       } else {
-           Toast.makeText(SignUpActivity.this, "Erro ao cadastrar usuario", Toast.LENGTH_SHORT).show();
-       }
-
+            Toast.makeText(SignUpActivity.this, "Usuário cadastrado", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(SignUpActivity.this, "Erro ao cadastrar usuário", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void checkFieldsForEmptyValues(List<EditText> editTextList, Button signupButton) {
