@@ -79,8 +79,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$PROJECT_DIR$/../../Menu/Back/Arrow.svg" />
-                                                <entry key="scalingPercent" value="52" />
+                                                <entry key="imagePath" value="$USER_HOME$/Desktop/Captura de Tela 2023-12-14 às 11.59.05.png" />
+                                                <entry key="scalingPercent" value="89" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -112,7 +112,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="arrow" />
+                                      <entry key="foregroundLayerName" value="icone_mazza" />
+                                      <entry key="outputName" value="icone" />
                                     </map>
                                   </option>
                                 </PersistentState>
