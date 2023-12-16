@@ -32,11 +32,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
         holder.email.setText(user.getEmail());
         holder.name.setText(user.getName());
 
-        // Configuração do ícone de exclusão
+
         holder.deleteIcon.setOnClickListener(v -> {
-            // Remove o item da lista
             users.remove(position);
-            // Notifica o RecyclerView que o item foi removido
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, users.size());
         });

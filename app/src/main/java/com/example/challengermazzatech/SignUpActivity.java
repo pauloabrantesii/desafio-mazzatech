@@ -24,14 +24,14 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class SignUpActivity extends AppCompatActivity {
     UserDAO dao;
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageButton imageButton;
     private boolean isImageSelected = false;
-
+    private List<EditText> editTextList;
+    private Button signupButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +48,12 @@ public class SignUpActivity extends AppCompatActivity {
         cpfEditText.setHint("Digite seu CPF");
         EditText dataEditText = findViewById(R.id.DATA);
         EditText sexoEditText = findViewById(R.id.Sexo);
-        Button signupButton = findViewById(R.id.signupButton);
+        signupButton = findViewById(R.id.signupButton);
         ImageView goBackButton = findViewById(R.id.goback);
-
-
 
         signupButton.setEnabled(false);
 
-        List<EditText> editTextList = new ArrayList<>();
+        editTextList = new ArrayList<>();
         editTextList.add(nomeEditText);
         editTextList.add(usernameEditText);
         editTextList.add(emailEditText);
@@ -223,11 +221,13 @@ public class SignUpActivity extends AppCompatActivity {
             Uri selectedImage = data.getData();
             imageButton.setImageURI(selectedImage);
             isImageSelected = true;
+            if (checkFieldsForEmptyValues(editTextList, signupButton) && isImageSelected) {
+                signupButton.setEnabled(true);
+            }
         }
     }
 
-
-    private void checkFieldsForEmptyValues(List<EditText> editTextList, Button signupButton) {
+    private boolean checkFieldsForEmptyValues(List<EditText> editTextList, Button signupButton) {
         boolean allFieldsFilled = true;
 
         for (EditText editText : editTextList) {
@@ -237,7 +237,13 @@ public class SignUpActivity extends AppCompatActivity {
             }
         }
 
-        signupButton.setEnabled(allFieldsFilled);
+        if (allFieldsFilled && isImageSelected) {
+            signupButton.setEnabled(true);
+        } else {
+            signupButton.setEnabled(false);
+        }
+
+        return allFieldsFilled;
     }
 
     private boolean isValidEmail(String email) {

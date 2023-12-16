@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "app_database";
@@ -104,20 +105,35 @@ public class UserDAO extends SQLiteOpenHelper {
         }
     }
 
+    public List<User> getAllUsers() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_USER;
+        Cursor cursor = db.rawQuery(query, null);
+
+        List<User> result = new ArrayList<>();
+
+        String[] columnNames = cursor.getColumnNames();
+        for (String name : columnNames) {
+            System.out.println("Column username: " + name);
+        }
+
+        while (cursor.moveToNext()) {
+            User user = new User(
+                    cursor.getString(cursor.getColumnIndex(COL_NOME)),
+                    cursor.getString(cursor.getColumnIndex(COL_EMAIL)),
+                    cursor.getString(cursor.getColumnIndex(COL_USERNAME)),
+                    cursor.getString(cursor.getColumnIndex(COL_PASSWORD)),
+                    cursor.getString(cursor.getColumnIndex(COL_ENDERECO)),
+                    cursor.getString(cursor.getColumnIndex(COL_DATA_NASCIMENTO)),
+                    cursor.getString(cursor.getColumnIndex(COL_SEXO)),
+                    cursor.getString(cursor.getColumnIndex(COL_TIPO)),
+                    cursor.getString(cursor.getColumnIndex(COL_CPF)),
+                    false,
+                    ""
+            );
+            result.add(user);
+        }
+        cursor.close();
+        return result;
+    }
 }
-//    public List<User>getAllUsers() {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        String query = "SELECT * FROM " + TABLE_USER;
-//        Cursor cursor = db.rawQuery(query, null);
-//
-//        List<User> result = new ArrayList<User>();
-//
-//
-//        while (
-//                cursor.moveToFirst()
-//        ) {
-//            result.add(new User(cursor.getString(cursor.getColumnIndex(COL_NOME),(COL_EMAIL), (""), (""), (""),(""),(""),(""),false, ("") )));
-//
-//        }
-//    }
-//}
