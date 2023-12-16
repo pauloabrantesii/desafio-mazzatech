@@ -83,7 +83,7 @@ public class UserDAO extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, new String[]{user.getUsername()});
 
         if (cursor.getCount() > 0) {
-            Toast.makeText(context, "email já cadastrado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "userName já cadastrado", Toast.LENGTH_SHORT).show();
             cursor.close();
             return -1;
         } else {

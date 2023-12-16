@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,6 +25,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
 public class SignUpActivity extends AppCompatActivity {
     UserDAO dao;
 
@@ -172,20 +178,19 @@ public class SignUpActivity extends AppCompatActivity {
                 if (idade < 18) {
                     Toast.makeText(SignUpActivity.this, "É necessário ter mais de 18 anos para se cadastrar.", Toast.LENGTH_SHORT).show();
                 } else {
-                    registerUser(
+                    User user = new User(
                             nomeEditText.getText().toString(),
-                            usernameEditText.getText().toString(),
                             emailEditText.getText().toString(),
                             passwordEditText.getText().toString(),
+                            usernameEditText.getText().toString(),
                             addressText.getText().toString(),
-                            passwordEditText.getText().toString(),
+                            dataNascimento, sexoEditText.getText().toString(),
+                            "",
                             cpfEditText.getText().toString(),
-                            dataNascimento,
-                            sexoEditText.getText().toString(),
+                            false,
                             ""
-
-
                     );
+                    registerUser(user);
                 }
             } else {
                 Toast.makeText(SignUpActivity.this, "Por favor, insira sua data de nascimento.", Toast.LENGTH_SHORT).show();
@@ -194,24 +199,35 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private void registerUser(String name, String username, String email, String password, String address, String age, String sex, String type, String cpf, String image){
-        User user = new User(name, email, password, username, address, age, sex, type, cpf, false, image);
-        long result =  dao.registerUser(this, user);
+    private void registerUser(User user) {
+        long result = dao.registerUser(this, user);
         int alreadyRegistered = -1;
 
         if (result != alreadyRegistered) {
-            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-            startActivity(intent);
-            Toast.makeText(SignUpActivity.this, "Usuário cadastrado", Toast.LENGTH_SHORT).show();
+            ApiService apiService = HttpClient.service();
+            Call<ResponseBody> call = apiService.registerUserRequest(user);
+            call.enqueue(new retrofit2.Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        Log.d("STATUS", "MSG: " + response.body());
+                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(SignUpActivity.this, "Usuário cadastrado", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Erro ao cadastrar usuário na API:" + response.body(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                }
+            });
+
         } else {
             Toast.makeText(SignUpActivity.this, "Erro ao cadastrar usuário", Toast.LENGTH_SHORT).show();
         }
     }
-
-//    private void requestRegisterUser(User user) {
-//        Http http = Http.request();
-//        Call<List<User>> call = http
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
