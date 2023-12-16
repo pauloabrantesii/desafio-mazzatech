@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class UserDAO extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "app_database";
     private static final int DATABASE_VERSION = 1;
@@ -101,4 +103,19 @@ public class UserDAO extends SQLiteOpenHelper {
             return id;
         }
     }
-}
+//    public List<User>getAllUsers() {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        String query = "SELECT * FROM " + TABLE_USER;
+//        Cursor cursor = db.rawQuery(query, null);
+//
+//        List<User> result = new ArrayList<User>();
+//
+//
+//        while (
+//                cursor.moveToFirst()
+//        ) {
+//            result.add(new User(cursor.getString(cursor.getColumnIndex(COL_NOME),(COL_EMAIL), (""), (""), (""),(""),(""),(""),false, ("") )));
+//
+//        }
+//    }
+//}
