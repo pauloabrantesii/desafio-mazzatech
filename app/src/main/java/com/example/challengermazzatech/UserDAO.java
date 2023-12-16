@@ -103,6 +103,8 @@ public class UserDAO extends SQLiteOpenHelper {
             return id;
         }
     }
+
+}
 //    public List<User>getAllUsers() {
 //        SQLiteDatabase db = this.getWritableDatabase();
 //        String query = "SELECT * FROM " + TABLE_USER;

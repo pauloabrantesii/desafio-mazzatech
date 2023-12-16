@@ -3,6 +3,7 @@ package com.example.challengermazzatech;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -29,6 +30,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageButton imageButton;
+    private boolean isImageSelected = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,8 @@ public class SignUpActivity extends AppCompatActivity {
         EditText sexoEditText = findViewById(R.id.Sexo);
         Button signupButton = findViewById(R.id.signupButton);
         ImageView goBackButton = findViewById(R.id.goback);
+
+
 
         signupButton.setEnabled(false);
 
@@ -208,6 +214,18 @@ public class SignUpActivity extends AppCompatActivity {
 //        Http http = Http.request();
 //        Call<List<User>> call = http
 //    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri selectedImage = data.getData();
+            imageButton.setImageURI(selectedImage);
+            isImageSelected = true;
+        }
+    }
+
 
     private void checkFieldsForEmptyValues(List<EditText> editTextList, Button signupButton) {
         boolean allFieldsFilled = true;

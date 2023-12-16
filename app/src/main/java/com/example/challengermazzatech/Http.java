@@ -1,9 +1,5 @@
 package com.example.challengermazzatech;
 
-import android.content.Intent;
-
-import com.android.*;
-
 import java.util.List;
 
 import retrofit2.Call;
