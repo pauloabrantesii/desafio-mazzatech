@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -52,19 +53,15 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("LoginActivity", password);
 
                 UserDAO dao = new UserDAO(LoginActivity.this);
-//                boolean login = dao.checkUserLogged(email, password);
-//                if (
-//                        login
-//                ){
-//                    Intent intent = new Intent(context, HomeActivity.class);
-//                    startActivity(intent);
-//                } else {
-//                    Toast.makeText(LoginActivity.this, "email ou senha inválido", Toast.LENGTH_SHORT).show();
-//                };
-                Intent intent = new Intent(context, HomeActivity.class);
-                startActivity(intent);
-
-
+                boolean login = dao.checkUserLogged(email, password);
+                if (
+                        login
+                ){
+                    Intent intent = new Intent(context, HomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(LoginActivity.this, "email ou senha inválido", Toast.LENGTH_SHORT).show();
+                };
             }
         });
     }

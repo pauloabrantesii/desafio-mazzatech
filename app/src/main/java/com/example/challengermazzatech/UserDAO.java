@@ -8,17 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 public class UserDAO extends SQLiteOpenHelper {
-
-
     private static final String DATABASE_NAME = "app_database";
-
-
     private static final int DATABASE_VERSION = 1;
-
-
     private static final String TABLE_USER = "User";
-
-
     private static final String COL_ID = "id";
     private static final String COL_NOME = "nome";
     private static final String COL_USERNAME = "username";
@@ -63,37 +55,25 @@ public class UserDAO extends SQLiteOpenHelper {
 
     }
 
-    public boolean checkUserLogged(String email, String passoword) {
+    public boolean checkUserLogged(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String[] columns = {COL_PASSWORD};
-
-//        String selection = COL_EMAIL + "=? AND " + COL_PASSWORD + " IS NOT NULL";
-
         String query = "SELECT * FROM " + TABLE_USER + " WHERE " + COL_EMAIL + " = ? AND " + COL_PASSWORD + " = ?";
-        String[] selectionArgs = {email, passoword};
-        Cursor cursor = db.rawQuery(query, new String[]{email});
-//        Cursor cursor = db.query(
-//                TABLE_USER,
-//                columns,
-//                selection,
-//                selectionArgs,
-//                null,
-//                null,
-//                null
-//        );
 
-        boolean isLogged = cursor != null && cursor.getCount() == 0;
+        String[] selectionArgs = {email, password};
+        Cursor cursor = db.rawQuery(query, selectionArgs);
 
-//        if (cursor != null) {
-//            cursor.close();
-//        }
-//        db.close();
+        boolean isLogged = cursor.moveToFirst();
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
 
         return isLogged;
     }
 
-    public long inserirUsuario(Context context, User user) {
+    public long registerUser(Context context, User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "SELECT * FROM " + TABLE_USER + " WHERE " + COL_USERNAME + " = ?";
@@ -113,6 +93,7 @@ public class UserDAO extends SQLiteOpenHelper {
             values.put(COL_SEXO, user.getSex());
             values.put(COL_TIPO, user.getType());
             values.put(COL_CPF, user.getCpf());
+            values.put(COL_PASSWORD, user.getPassword());
 
             long id = db.insert(TABLE_USER, null, values);
             db.close();

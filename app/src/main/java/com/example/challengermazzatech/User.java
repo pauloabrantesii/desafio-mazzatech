@@ -1,9 +1,11 @@
 package com.example.challengermazzatech;
 
 public class User {
+    String image;
     String name;
     String username;
     String email;
+    String password;
     String address;
     String age;
     String sex;
@@ -12,7 +14,7 @@ public class User {
 
     boolean login;
 
-    public User (String name, String email, String username, String address, String age, String sex, String type, String cpf, boolean login) {
+    public User (String name, String email, String password, String username, String address, String age, String sex, String type, String cpf, boolean login, String image) {
         this.name = name;
         this.email = email;
         this.username = username;
@@ -22,6 +24,8 @@ public class User {
         this.type = type;
         this.cpf = cpf;
         this.login = login;
+        this.password = password;
+        this.image = image;
     }
 
     public boolean isLogin() {
@@ -59,4 +63,8 @@ public class User {
     public String getCpf() {
         return cpf;
     }
+
+    public String getPassword() { return password; }
+
+    public String image() { return image; }
 };

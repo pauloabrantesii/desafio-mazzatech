@@ -35,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         EditText nomeEditText = findViewById(R.id.TextNome);
+        ImageButton imageButtonUser = findViewById(R.id.imageButton);
         EditText usernameEditText = findViewById(R.id.editTextUsername);
         EditText emailEditText = findViewById(R.id.editTextEmail);
         EditText passwordEditText = findViewById(R.id.passwordEditText);
@@ -57,6 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
         editTextList.add(cpfEditText);
         editTextList.add(dataEditText);
         editTextList.add(sexoEditText);
+
 
         imageButton = findViewById(R.id.imageButton);
 
@@ -170,11 +172,15 @@ public class SignUpActivity extends AppCompatActivity {
                             nomeEditText.getText().toString(),
                             usernameEditText.getText().toString(),
                             emailEditText.getText().toString(),
+                            passwordEditText.getText().toString(),
                             addressText.getText().toString(),
                             passwordEditText.getText().toString(),
                             cpfEditText.getText().toString(),
                             dataNascimento,
-                            sexoEditText.getText().toString()
+                            sexoEditText.getText().toString(),
+                            ""
+
+
                     );
                 }
             } else {
@@ -184,10 +190,12 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private void registerUser(String name,String username,String email, String address, String age, String sex, String type, String cpf ){
-        User user = new User(name, username, email, address, age, sex, type, cpf, false);
-        long result =  dao.inserirUsuario(this, user);
-        if (result != -1) {
+    private void registerUser(String name, String username, String email, String password, String address, String age, String sex, String type, String cpf, String image){
+        User user = new User(name, email, password, username, address, age, sex, type, cpf, false, image);
+        long result =  dao.registerUser(this, user);
+        int alreadyRegistered = -1;
+
+        if (result != alreadyRegistered) {
             Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
             startActivity(intent);
             Toast.makeText(SignUpActivity.this, "Usuário cadastrado", Toast.LENGTH_SHORT).show();
@@ -195,6 +203,11 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(SignUpActivity.this, "Erro ao cadastrar usuário", Toast.LENGTH_SHORT).show();
         }
     }
+
+//    private void requestRegisterUser(User user) {
+//        Http http = Http.request();
+//        Call<List<User>> call = http
+//    }
 
     private void checkFieldsForEmptyValues(List<EditText> editTextList, Button signupButton) {
         boolean allFieldsFilled = true;
