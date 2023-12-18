@@ -23,7 +23,6 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -37,65 +36,48 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-
-
         EditText editSearch = findViewById(R.id.textSearch);
         editSearch.setText("Busque pelo nome");
         editSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
+                if (hasFocus && editSearch.getText().toString().equals("Busque pelo nome")) {
                     editSearch.setText("");
                 }
             }
         });
 
         UserDAO userDAO = new UserDAO(this);
-        List<User> list = userDAO.getAllUsers();
+        list = userDAO.getAllUsers();
 
         RecyclerView recyclerView = findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         adapter = new UserAdapter(list, this);
         recyclerView.setAdapter(adapter);
-
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new UserAdapter(list, this);
-        recyclerView.setAdapter(adapter);
-
-
 
         EditText editText = findViewById(R.id.textSearch);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
-            filterText(s.toString());
+                filterText(s.toString());
             }
         });
-
     }
 
-       private void filterText (String Text){
-           List<User> listUser = new ArrayList<User>();
-           for(User user: list){
-               if (
-                       user.name.toLowerCase().contains(Text.toLowerCase())
-               ){
-                   listUser.add(user);
-               }
-           }
-           adapter.changeList(listUser);
-       }
-
-
+    private void filterText (String Text){
+        List<User> listUser = new ArrayList<>();
+        for(User user: list){
+            if (user.name.toLowerCase().contains(Text.toLowerCase())){
+                listUser.add(user);
+            }
+        }
+        adapter.changeList(listUser);
+    }
 }

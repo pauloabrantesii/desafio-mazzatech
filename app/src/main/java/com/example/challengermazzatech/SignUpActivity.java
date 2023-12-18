@@ -162,6 +162,45 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {}
         });
+        dataEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 10 && s.toString().matches("\\d{2}/\\d{2}/\\d{4}")) {
+                    String[] parts = s.toString().split("/");
+                    int dia = Integer.parseInt(parts[0]);
+                    int mes = Integer.parseInt(parts[1]);
+                    int ano = Integer.parseInt(parts[2]);
+
+                    Calendar cal = Calendar.getInstance();
+                    int anoAtual = cal.get(Calendar.YEAR);
+                    int mesAtual = cal.get(Calendar.MONTH) + 1;
+
+                    int idade = anoAtual - ano;
+                    if (mes < mesAtual || (mes == mesAtual && dia <= cal.get(Calendar.DAY_OF_MONTH))) {
+                        idade--;
+                    }
+
+                    if (idade < 18) {
+                        Toast.makeText(SignUpActivity.this, "É necessário ter mais de 18 anos para se cadastrar.", Toast.LENGTH_SHORT).show();
+                        signupButton.setEnabled(false);
+                    } else {
+                        signupButton.setEnabled(true);
+                    }
+                } else {
+                    signupButton.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+
+
+
         signupButton.setOnClickListener(v -> {
             String dataNascimento = dataEditText.getText().toString();
             if (!dataNascimento.isEmpty()) {
@@ -209,8 +248,11 @@ public class SignUpActivity extends AppCompatActivity {
             call.enqueue(new retrofit2.Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.i("Paulo:", "MSG: " + response.body());
                     if (response.isSuccessful()) {
-                        Log.d("STATUS", "MSG: " + response.body());
+                        Log.i("STATUS", "MSG: " + response);
+                        System.out.println("MSG: " + response.body());
+                        Log.i("STATUSBB", "MSG: " + response.body());
                         Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                         startActivity(intent);
                         Toast.makeText(SignUpActivity.this, "Usuário cadastrado", Toast.LENGTH_SHORT).show();
